@@ -25,8 +25,8 @@
             <div class="col">
                 <h4>Телефон:</h4>
                 <input type="text" class="form-control" placeholder="Телефон" 
-                    v-model="phoneNumber" v-on:change="validatePhoneNumber">
-                <div class="alert alert-danger" id="warning" role="alert">
+                    v-model="phoneNumber">
+                <div class="alert alert-danger" id="warning" role="alert"  v-if="!validatePhoneNumber">
                     Номер телефона может состоять только из цифр и иметь длину от 6 до 10 символов.
                 </div>
             </div>
@@ -125,7 +125,7 @@ export default {
             city: null,
             image: null,
             FIO: null,
-            phoneNumber: null,
+            phoneNumber: null,  
             email: null,
             birthdate: null,
             educationLevel: null,
@@ -138,14 +138,13 @@ export default {
             about: null,
         }
     },
-    methods: {
-        validatePhoneNumber() {
-            var regex = /^[0-9]{6,10}$/i;
-            if (regex.test(this.phoneNumber)) {
-                document.getElementById("warning").style.display = "none";
-            } else {
-                document.getElementById("warning").style.display = "inherit";
+    computed: {
+        validatePhoneNumber: function() {
+            var regEx = /^[0-9]{6,10}$/i;
+            if (regEx.test(this.phoneNumber)) {
+                return true;
             }
+            return false;
         }
     }
 }
